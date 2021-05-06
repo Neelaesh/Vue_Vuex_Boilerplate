@@ -16,7 +16,7 @@ export default {
     },
     // To fetch existing Coaches
     async fetchCoaches(context) {
-        let response = await fetch(`https://vue-http-demo-906e8-default-rtdb.firebaseio.com/coaches.`);
+        let response = await fetch(`https://vue-http-demo-906e8-default-rtdb.firebaseio.com/coaches.json`);
         if(!response.ok) {
             // Error
             let error = new Error(error.message || 'Failed to fetch!');
