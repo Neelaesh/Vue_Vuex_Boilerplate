@@ -1,15 +1,21 @@
 <template>
     <div>
+        <base-dialog :show="!!error" title="An error occurred!" @close="handleError">
+            <p>{{ error }}</p>
+        </base-dialog>
         <section>
             <coach-filter @change-filters="setFilters"></coach-filter>
         </section>
         <section>
         <base-card>
             <div class="controls">
-                <base-button mode="outline">Refresh</base-button>
-                <base-button link to="/register" v-if="!isCoach">Register as a Coach</base-button>
+                <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
+                <base-button link to="/register" v-if="!isLoading && !isCoach">Register as a Coach</base-button>
             </div>
-            <ul v-if="hasCoaches">
+            <div v-if="isLoading">
+                <base-spinner></base-spinner>
+            </div>
+            <ul v-else-if="hasCoaches">
                 <coach-item v-for="coach in filteredCoaches" 
                 :key="coach.id"
                 :id="coach.id"
@@ -32,6 +38,8 @@ import CoachFilter from './CoachFilter.vue';
 export default {
     data() {
         return {
+            isLoading: false,
+            error: null,
             activeFilters : {
                 frontend: true,
                 backend: true,
@@ -69,7 +77,23 @@ export default {
     methods: {
         setFilters(updatedFilters) {
             this.activeFilters = updatedFilters;
+        },
+        async loadCoaches() {
+            this.isLoading = true;
+            try{
+                await this.$store.dispatch('coaches/fetchCoaches');
+            }
+            catch(error){
+                this.error = error.message || 'Something went wrong!';
+            }
+            this.isLoading = false;
+        },
+        handleError() {
+            this.error = null;
         }
+    },
+    created() {
+        this.loadCoaches();
     }
 }
 </script>
@@ -84,5 +108,9 @@ ul {
 .controls {
   display: flex;
   justify-content: space-between;
+}
+
+p {
+    font-weight: bold;
 }
 </style>
