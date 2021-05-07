@@ -4,5 +4,8 @@ export default {
     },
     setRequests(state, payload) {
         state.requests = payload;
+    },
+    setLastFetch(state) {
+        state.lastFetch = new Date().getTime();
     } 
 }
