@@ -14,7 +14,7 @@ export default {
         emailLink() {
             return 'mailto:' + this.email;
         }
-    }
+    },
 }
 </script>
 
