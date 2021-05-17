@@ -1,39 +1,85 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control" :class="{invalid: !firstName.isValid}">
-      <label for="firstName">First Name<span class="requiredField">*</span></label>
-      <input type="text" id="firstName" v-model.trim="firstName.val" @blur="clearValidity('firstName')"/>
+    <div class="form-control" :class="{ invalid: !firstName.isValid }">
+      <label for="firstName"
+        >First Name<span class="requiredField">*</span></label
+      >
+      <input
+        type="text"
+        id="firstName"
+        v-model.trim="firstName.val"
+        @blur="clearValidity('firstName')"
+      />
       <p v-if="!firstName.isValid">First Name must not be empty</p>
     </div>
-    <div class="form-control" :class="{invalid: !lastName.isValid}">
-      <label for="lastName">Last Name<span class="requiredField">*</span></label>
-      <input type="text" id="lastName" v-model.trim="lastName.val" @blur="clearValidity('lastName')"/>
+    <div class="form-control" :class="{ invalid: !lastName.isValid }">
+      <label for="lastName"
+        >Last Name<span class="requiredField">*</span></label
+      >
+      <input
+        type="text"
+        id="lastName"
+        v-model.trim="lastName.val"
+        @blur="clearValidity('lastName')"
+      />
       <p v-if="!lastName.isValid">Last Name must not be empty</p>
     </div>
-    <div class="form-control" :class="{invalid: !areas.isValid}">
+    <div class="form-control" :class="{ invalid: !areas.isValid }">
       <h3>Areas of Expertise<span class="requiredField">*</span></h3>
       <div>
-        <input type="checkbox" id="frontend" value="frontend" v-model="areas.val" @blur="clearValidity('areas')"/>
+        <input
+          type="checkbox"
+          id="frontend"
+          value="frontend"
+          v-model="areas.val"
+          @blur="clearValidity('areas')"
+        />
         <label for="frontend">Frontend Development</label>
       </div>
       <div>
-        <input type="checkbox" id="backend" value="backend" v-model="areas.val" @blur="clearValidity('areas')"/>
+        <input
+          type="checkbox"
+          id="backend"
+          value="backend"
+          v-model="areas.val"
+          @blur="clearValidity('areas')"
+        />
         <label for="backend">Backend Development</label>
       </div>
       <div>
-        <input type="checkbox" id="career" value="career" v-model="areas.val" @blur="clearValidity('areas')"/>
+        <input
+          type="checkbox"
+          id="career"
+          value="career"
+          v-model="areas.val"
+          @blur="clearValidity('areas')"
+        />
         <label for="career">Career Advisory</label>
       </div>
       <p v-if="!areas.isValid">Select atleast one of the Area of Expertise</p>
     </div>
-    <div class="form-control" :class="{invalid: !description.isValid}">
-      <label for="description">Description<span class="requiredField">*</span></label>
-      <textarea id="description" rows="5" v-model.trim="description.val" @blur="clearValidity('description')"></textarea>
+    <div class="form-control" :class="{ invalid: !description.isValid }">
+      <label for="description"
+        >Description<span class="requiredField">*</span></label
+      >
+      <textarea
+        id="description"
+        rows="5"
+        v-model.trim="description.val"
+        @blur="clearValidity('description')"
+      ></textarea>
       <p v-if="!description.isValid">Description must not be empty</p>
     </div>
-    <div class="form-control" :class="{invalid: !hourlyRate.isValid}">
-      <label for="hourlyRate">Hourly Rates<span class="requiredField">*</span></label>
-      <input type="number" id="hourlyRate" v-model.number="hourlyRate.val" @blur="clearValidity('hourlyRate')"/>
+    <div class="form-control" :class="{ invalid: !hourlyRate.isValid }">
+      <label for="hourlyRate"
+        >Hourly Rates<span class="requiredField">*</span></label
+      >
+      <input
+        type="number"
+        id="hourlyRate"
+        v-model.number="hourlyRate.val"
+        @blur="clearValidity('hourlyRate')"
+      />
       <p v-if="!hourlyRate.isValid">Hourly Rate must be greater than 0</p>
     </div>
     <p v-if="!formIsValid">Please check the Errors</p>
@@ -74,23 +120,23 @@ export default {
       this[input].isValid = true;
     },
     validateForm() {
-      if(this.firstName.val == "") {
+      if (this.firstName.val == "") {
         this.firstName.isValid = false;
         this.formIsValid = false;
       }
-      if(this.lastName.val == "") {
+      if (this.lastName.val == "") {
         this.lastName.isValid = false;
         this.formIsValid = false;
       }
-      if(this.areas.length === 0) {
+      if (this.areas.length === 0) {
         this.areas.isValid = false;
         this.formIsValid = false;
       }
-      if(this.description.val == "") {
+      if (this.description.val == "") {
         this.description.isValid = false;
         this.formIsValid = false;
       }
-      if(!this.hourlyRate.val || this.hourlyRate.val < 0) {
+      if (!this.hourlyRate.val || this.hourlyRate.val < 0) {
         this.hourlyRate.isValid = false;
         this.formIsValid = false;
       }
@@ -98,7 +144,7 @@ export default {
     submitForm() {
       this.formIsValid = true;
       this.validateForm();
-      if(!this.formIsValid) {
+      if (!this.formIsValid) {
         return;
       }
 

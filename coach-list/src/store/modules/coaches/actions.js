@@ -2,7 +2,8 @@ export default {
     // To add a new Coach
     async addNewCoach(context, data) {
         const userId = context.rootGetters.userId;
-        let response = await fetch(`https://vue-http-demo-906e8-default-rtdb.firebaseio.com/coaches/${userId}.json`, {
+        const token = context.rootGetters.token;
+        let response = await fetch(`https://vue-http-demo-906e8-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + token, {
             method: 'PUT',
             body: JSON.stringify(data)
         });
@@ -23,7 +24,7 @@ export default {
         let response = await fetch(`https://vue-http-demo-906e8-default-rtdb.firebaseio.com/coaches.json`);
         if(!response.ok) {
             // Error
-            const error = new Error(error.message || 'Failed to fetch!');
+            const error = new Error(response.message || 'Failed to fetch!');
             throw error;
         }
         let responseData = await response.json();
