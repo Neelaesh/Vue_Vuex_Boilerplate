@@ -1,46 +1,52 @@
 <template>
-    <form @submit.prevent="submitForm">
-      <div class="form-control">
-        <label for="email">Email<span class="requiredField">*</span></label>
-        <input type="email" id="email" v-model.trim="email"/>
-      </div>
-      <div class="form-control">
-        <label for="message">Message<span class="requiredField">*</span></label>
-        <textarea id="message" rows="5" v-model.trim="message"></textarea>
-      </div>
-      <p class="errors" v-if="!formIsValid">Please enter a valid email and a non empty message</p>
-      <div class="actions">
-        <base-button>Send Message</base-button>
-      </div>
-    </form>
+  <form @submit.prevent="submitForm">
+    <div class="form-control">
+      <label for="email">Email<span class="requiredField">*</span></label>
+      <input type="email" id="email" v-model.trim="email" />
+    </div>
+    <div class="form-control">
+      <label for="message">Message<span class="requiredField">*</span></label>
+      <textarea id="message" rows="5" v-model.trim="message"></textarea>
+    </div>
+    <p class="errors" v-if="!formIsValid">
+      Please enter a valid email and a non empty message
+    </p>
+    <div class="actions">
+      <base-button>Send Message</base-button>
+    </div>
+  </form>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      email: '',
-      message: '',
-      formIsValid: true
-    }
+      email: "",
+      message: "",
+      formIsValid: true,
+    };
   },
   methods: {
     submitForm() {
       this.formIsValid = true;
-      if(this.email === "" || this.message === "" || !this.email.includes('@')){
+      if (
+        this.email === "" ||
+        this.message === "" ||
+        !this.email.includes("@")
+      ) {
         this.formIsValid = false;
         return;
       }
       let formData = {
         coachId: this.$route.params.id,
         email: this.email,
-        message: this.message
-      }
-      this.$store.dispatch('requests/addRequest', formData);
-      this.$router.replace('/coaches');
-    }
-  }
-}
+        message: this.message,
+      };
+      this.$store.dispatch("requests/addRequest", formData);
+      this.$router.replace("/coaches");
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -1,21 +1,36 @@
 <template>
   <div>
     <the-header></the-header>
-      <router-view v-slot="slotProps">
-        <transition name="route" mode="out-in">
-          <component :is="slotProps.Component"></component>
-        </transition>
-      </router-view>
+    <router-view v-slot="slotProps">
+      <transition name="route" mode="out-in">
+        <component :is="slotProps.Component"></component>
+      </transition>
+    </router-view>
   </div>
 </template>
 
 <script>
-import TheHeader from './components/layout/TheHeader.vue';
+import TheHeader from "./components/layout/TheHeader.vue";
 export default {
   components: {
-    TheHeader
-  }
-}
+    TheHeader,
+  },
+  computed: {
+    didAutoLogOut() {
+      return this.$store.getters.didAutoLogOut;
+    },
+  },
+  watch: {
+    didAutoLogOut(currVal, oldVal) {
+      if (currVal && currVal != oldVal) {
+        this.$router.replace("/coaches");
+      }
+    },
+  },
+  created() {
+    this.$store.dispatch("autoLogIn");
+  },
+};
 </script>
 
 <style>
