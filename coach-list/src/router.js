@@ -1,13 +1,26 @@
+//import { defineAsyncComponent } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 import CoachesList from "./components/coaches/CoachesList.vue";
-import CoachDetail from "./components/coaches/CoachDetail.vue";
-import CoachRegistration from "./components/coaches/CoachRegistration.vue";
-import ContactCoach from "./components/requests/ContactCoach.vue";
-import RequestsList from "./components/requests/RequestsList.vue";
-import UserAuth from "./components/auth/UserAuth.vue";
+//import CoachDetail from "./components/coaches/CoachDetail.vue";
+//import CoachRegistration from "./components/coaches/CoachRegistration.vue";
+//import ContactCoach from "./components/requests/ContactCoach.vue";
+//import RequestsList from "./components/requests/RequestsList.vue";
+//import UserAuth from "./components/auth/UserAuth.vue";
 import NotFound from "./components/NotFound.vue";
 import store from "./store/store.js";
+
+// Asynchronous Components / Lazy Loading
+const CoachDetail = () => import("./components/coaches/CoachDetail.vue");
+
+const CoachRegistration = () =>
+  import("./components/coaches/CoachRegistration.vue");
+
+const ContactCoach = () => import("./components/requests/ContactCoach.vue");
+
+const RequestsList = () => import("./components/requests/RequestsList.vue");
+
+const UserAuth = () => import("./components/auth/UserAuth.vue");
 
 const router = createRouter({
   history: createWebHistory(),
